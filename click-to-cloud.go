@@ -9,6 +9,8 @@ import (
   "os/exec"
   simplejson "github.com/bitly/go-simplejson"
   "strings"
+  "strconv"
+  "time"
 )
 
 func main() {
@@ -21,8 +23,12 @@ func main() {
   }
 
   app.Action = func(c *cli.Context) {
-    os.MkdirAll("deploys", 0777)
-    os.Chdir("deploys")
+    nano_count  := strconv.FormatInt(time.Now().UnixNano(), 10)
+    deploy_dir  := "deploy-" + nano_count
+    fmt.Println(deploy_dir)
+
+    os.MkdirAll(deploy_dir, 0777)
+    os.Chdir(deploy_dir)
 
     repo_url        := c.String("repo")
     repo_url_split  := strings.Split(repo_url, "/")
@@ -69,10 +75,10 @@ func main() {
     }
 
     // Step 5: cleanup
-    os.Remove(repo_name)
+    os.Chdir("..")
+    os.Chdir("..")
+    os.RemoveAll(deploy_dir)
   }
 
   app.Run(os.Args)
 }
-
-
