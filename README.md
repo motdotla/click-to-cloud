@@ -1,5 +1,7 @@
 # click-to-cloud
 
+WARNING: This is no longer maintained. I recommend the [Heroku Button](https://devcenter.heroku.com/articles/heroku-button) as an excellent alternative.
+
 Make it possible to deploy applications to heroku and other places with just a click. 
 
 ## Usage
